@@ -1,0 +1,15 @@
+D:\Developement\NeoSketch\NeoSketch\bin\Debug\NeoSketch.exe.config
+D:\Developement\NeoSketch\NeoSketch\bin\Debug\NeoSketch.exe
+D:\Developement\NeoSketch\NeoSketch\bin\Debug\NeoSketch.pdb
+D:\Developement\NeoSketch\NeoSketch\obj\Debug\NeoSketch.csprojAssemblyReference.cache
+D:\Developement\NeoSketch\NeoSketch\obj\Debug\MainWindow.g.cs
+D:\Developement\NeoSketch\NeoSketch\obj\Debug\App.g.cs
+D:\Developement\NeoSketch\NeoSketch\obj\Debug\NeoSketch_MarkupCompile.cache
+D:\Developement\NeoSketch\NeoSketch\obj\Debug\NeoSketch_MarkupCompile.lref
+D:\Developement\NeoSketch\NeoSketch\obj\Debug\MainWindow.baml
+D:\Developement\NeoSketch\NeoSketch\obj\Debug\NeoSketch.g.resources
+D:\Developement\NeoSketch\NeoSketch\obj\Debug\NeoSketch.Properties.Resources.resources
+D:\Developement\NeoSketch\NeoSketch\obj\Debug\NeoSketch.csproj.GenerateResource.cache
+D:\Developement\NeoSketch\NeoSketch\obj\Debug\NeoSketch.csproj.CoreCompileInputs.cache
+D:\Developement\NeoSketch\NeoSketch\obj\Debug\NeoSketch.exe
+D:\Developement\NeoSketch\NeoSketch\obj\Debug\NeoSketch.pdb
