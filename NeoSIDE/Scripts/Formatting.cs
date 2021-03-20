@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -39,6 +39,15 @@ namespace NeoSIDE.formatting
         {
             Text = text;
             TextColor = textColor;
+        }
+    }
+    public class commonError
+    {
+        public string signifier;
+
+        public commonError(string text)
+        {
+            signifier = text;
         }
     }
 }
