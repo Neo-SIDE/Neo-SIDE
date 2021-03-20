@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,8 +20,21 @@ namespace NeoSIDE.Languages
             formatView.keywords = new List<Keyword>() {
                 new Keyword("if", Colors.Red),
                 new Keyword("while", Colors.Red),
-                new Keyword("for", Colors.Red)
+                new Keyword("for", Colors.Red),
+                new Keyword("from", Colors.Red),
+                new Keyword("import", Colors.Red)
             };
+
+            formatView.commonErrors = new List<commonError>() {
+                new commonError(";")
+            };
+
+            formatView.stringStarter = "\"";
+            formatView.stringStarterAlt = "'";
+            
+            formatView.multiLineStringStarter = "\"\"\"";
+
+            formatView.commentStarter = "#";
         }
     }
 }
