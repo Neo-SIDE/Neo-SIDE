@@ -622,6 +622,42 @@ namespace NeoSIDE
                         }
                     }
                 }
+
+                // strings 
+
+                bool inString = false;
+                foreach (Grid lineTemp in ScriptEditor.Children)
+                {
+                    StackPanel line = lineTemp.Children[1] as StackPanel;
+
+                    foreach (UIElement tempTXT in line.Children)
+                    {
+                        if (tempTXT is TextBlock)
+                        {
+                            string txt = (tempTXT as TextBlock).Text;
+                            TextBlock textb = tempTXT as TextBlock;
+
+                            if (txt == "\"")
+                            {
+                                switch (inString)
+                                {
+                                    case false:
+                                        inString = true;
+                                        break;
+                                    case true:
+                                        inString = false;
+                                        break;
+                                }
+                                textb.Foreground = new SolidColorBrush(Colors.Orange);
+                            }
+
+                            if (inString)
+                            {
+                                textb.Foreground = new SolidColorBrush(Colors.Orange);
+                            }
+                        }
+                    }
+                }
             }
         }
 
