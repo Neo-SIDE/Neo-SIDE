@@ -28,6 +28,7 @@ namespace NeoSIDE.formatting
         public string multiLineCommentStarter;
 
         public List<Keyword> keywords = new List<Keyword> {};
+        public List<commonError> commonErrors = new List<commonError> {};
     }
 
     public class Keyword
