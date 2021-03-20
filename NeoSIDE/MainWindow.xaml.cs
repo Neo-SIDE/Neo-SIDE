@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -40,9 +40,9 @@ namespace NeoSIDE
         bool textBoxUsable = true;
 
         // if formatting is enabled
-        bool format = false;
+        bool format = true;
 
-        ScriptingLanguage currentLanguage;
+        ScriptingLanguage currentLanguage = new Python();
 
         // create a new instance of mainwindow and call functions on start
 
@@ -490,7 +490,8 @@ namespace NeoSIDE
         /// if the text should be formatted
         ///     wait 10 ms (0.01s)
         /// 
-        ///     create a variable with a smaller name than the current languages directory
+        ///     create a variable with a smaller name than the current languages keywords' directory
+        ///     create a variable with a smaller name than the current languages errors' directory
         /// 
         ///     for every keyword in the current languages keyword
         ///         for every line in the script editor or file
@@ -513,6 +514,28 @@ namespace NeoSIDE
         ///                             
         ///                             if the characters index is less within the range of the found keyword
         ///                                 make the current character's text color the keyword's specified formatting color
+        ///     
+        ///     for every error in the current languages common errors
+        ///         for every line in the script editor or file
+        ///             create a stackpanel to hold the text objects that are the children
+        ///             create a string that holds the lines text that is set to the text read from the line
+        ///         
+        ///             create an number to be where the scan for the keyword will currently start
+        ///             create a string to be the current keyword being searched for
+        ///                
+        ///             while the current keyword scan is inside the span of the current line
+        ///                 make a string to be the text that is being checked for the keyword  (hypothetical position of keyword, keyword length)
+        ///                 
+        ///                 if the text being checked for the keyword is the keyword
+        ///                     for every uiElement in the current lines children
+        ///                         create a textblock to hold the current character in the line
+        ///                         
+        ///                         if that uiElement is a textblock (not the cursor)
+        ///                             make textblock the ui element as a textblock
+        ///                             create an int to hold the current character's position
+        ///                             
+        ///                             if the characters index is less within the range of the found keyword
+        ///                                 make the current errored  text highlight in red
         /// </summary> 
 
         async void formatText()
@@ -522,6 +545,7 @@ namespace NeoSIDE
                 await Task.Delay(10);
 
                 List<Keyword> keywords = currentLanguage.formatView.keywords;
+                List<commonError> errors = currentLanguage.formatView.commonErrors;
 
                 foreach (formatting.Keyword keyword in keywords)
                 {
@@ -552,6 +576,44 @@ namespace NeoSIDE
                                         {
 
                                             textBlock.Foreground = new SolidColorBrush(keyword.TextColor);
+                                        }
+                                    }
+                                }
+                            }
+                            currentStart += 1;
+                        }
+                    }
+                }
+
+                foreach (formatting.commonError error in errors)
+                {
+                    foreach (Grid tempLine in ScriptEditor.Children)
+                    {
+                        StackPanel Line = tempLine.Children[1] as StackPanel;
+                        string lineText = readLineText(Line);
+
+                        int currentStart = 0;
+                        string checkingKeyword = error.signifier;
+
+                        while ((currentStart + checkingKeyword.Length) <= lineText.Length)
+                        {
+                            string checkingText = lineText.Substring(currentStart, checkingKeyword.Length);
+
+                            if (checkingText == checkingKeyword)
+                            {
+                                foreach (UIElement tempTextBlock in Line.Children)
+                                {
+                                    TextBlock textBlock;
+
+                                    if (tempTextBlock is TextBlock)
+                                    {
+                                        textBlock = tempTextBlock as TextBlock;
+                                        int index = (textBlock.Parent as StackPanel).Children.IndexOf(textBlock) + 1;
+
+                                        if (index >= currentStart && index <= (currentStart + checkingKeyword.Length))
+                                        {
+
+                                            textBlock.Background = new SolidColorBrush(Colors.Red);
                                         }
                                     }
                                 }
