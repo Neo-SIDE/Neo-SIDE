@@ -22,11 +22,15 @@ namespace NeoSIDE.Languages
                 new Keyword("while", Colors.Red),
                 new Keyword("for", Colors.Red),
                 new Keyword("from", Colors.Red),
-                new Keyword("import", Colors.Red)
+                new Keyword("import", Colors.Red),
+                new Keyword("True", Colors.Red),
+                new Keyword("False", Colors.Red)
             };
 
             formatView.commonErrors = new List<commonError>() {
-                new commonError(";")
+                new commonError(";"),
+                new commonError("true"),
+                new commonError("false")
             };
 
             formatView.stringStarter = "\"";
