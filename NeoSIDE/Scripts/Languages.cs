@@ -30,7 +30,10 @@ namespace NeoSIDE.Languages
             formatView.commonErrors = new List<commonError>() {
                 new commonError(";"),
                 new commonError("true"),
-                new commonError("false")
+                new commonError("false"),
+                new commonError("while ("),
+                new commonError("if ("),
+                new commonError("for (")
             };
 
             formatView.stringStarter = "\"";
