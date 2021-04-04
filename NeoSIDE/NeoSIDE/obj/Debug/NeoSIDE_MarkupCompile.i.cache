@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\Development\NeoSIDE\NeoSIDE\obj\Debug\
+C:\Users\Laptop\Documents\GitHub\Neo-SIDE\NeoSIDE\NeoSIDE\obj\Debug\
 NeoSIDE
 none
 false
 DEBUG;TRACE
-D:\Development\NeoSIDE\NeoSIDE\App.xaml
+C:\Users\Laptop\Documents\GitHub\Neo-SIDE\NeoSIDE\NeoSIDE\App.xaml
 3331022484
 
 101087013608
 13-1505183044
 components\ScriptEditor.xaml;MainWindow.xaml;Windows\newProject.xaml;
 
-False
+True
 

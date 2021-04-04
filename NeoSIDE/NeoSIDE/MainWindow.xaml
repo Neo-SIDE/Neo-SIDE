@@ -30,42 +30,15 @@
             </ContextMenu>
         </Grid.ContextMenu>
 
-        <!-- Middle Menu Bar Button  -->
-        <Image Margin="7" Name="fullScreenSourceDummy" Source="img\icons\fullScreenWindowButton.png" Visibility="Hidden"></Image>
-        <Image Margin="7" Name="unfullScreenSourceDummy" Source="img\icons\normalizeWindowButton.png" Visibility="Hidden"></Image>
-
         <!-- The Menu Bar at the top -->
-        <Grid VerticalAlignment="Top" Height="35" Margin="0,0,0,0">
+        <Grid VerticalAlignment="Top" Height="30" Margin="0,0,-0.4,0">
             <StackPanel Orientation="Horizontal" Margin="3,3,233,7">
                 <Border></Border>
-            </StackPanel>
-            <StackPanel WindowChrome.IsHitTestVisibleInChrome="True" Orientation="Horizontal" HorizontalAlignment="Right">
-                <Border Width="50" MouseDown="Minimize_OP" MouseEnter="Highlight" MouseLeave="Unhighlight">
-                    <TextBlock FontSize="25" Foreground="#ffffff" Text="-" Margin="20,0,0,0"></TextBlock>
-
-                    <Border.Background>
-                        <SolidColorBrush Opacity="0" Color="#2f2f2f"></SolidColorBrush>
-                    </Border.Background>
-                </Border>
-                <Border Width="50" MouseDown="switchScreenSizeMode_OP" MouseEnter="Highlight" MouseLeave="Unhighlight">
-                    <Image Margin="7" Name="fullUnfullscreen" Source="img\icons\normalizeWindowButton.png"></Image>
-
-                    <Border.Background>
-                        <SolidColorBrush Opacity="0" Color="#2f2f2f"></SolidColorBrush>
-                    </Border.Background>
-                </Border>
-                <Border Name="CloseButton" Width="50" MouseDown="Close_OP" MouseEnter="smoothHighlight" MouseLeave="smoothUnhighlight">
-                    <TextBlock Foreground="White" FontSize="20" Text="X" Margin="18,3,17,6"></TextBlock>
-
-                    <Border.Background>
-                        <SolidColorBrush Opacity="0" Color="Red"></SolidColorBrush>
-                    </Border.Background>
-                </Border>
             </StackPanel>
         </Grid>
 
         <!-- The main area -->
-        <Grid Margin="0,35,0,0">
+        <Grid Margin="0,30,0,0">
             <!-- spacing from edges -->
             <Grid Margin="5">
                 <xcp:ScriptEditor Grid.Column="0"></xcp:ScriptEditor>
