@@ -8,6 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("img/icons/fullscreenwindowbutton.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("img/icons/basicformatting.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("img/icons/codeformatting.png")]
 
 

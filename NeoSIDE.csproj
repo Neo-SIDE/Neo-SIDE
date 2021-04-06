@@ -112,13 +112,11 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="img\icons\newFileOptionIcon.png" />
+    <Resource Include="icons\newFileOptionIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="img\bg_placeholder.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="img\backgrounds\blue_purple_space1.png" />
+    <Resource Include="icons\BasicFormatting.png" />
+    <Resource Include="icons\CodeFormatting.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

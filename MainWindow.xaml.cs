@@ -70,20 +70,6 @@ namespace NeoSIDE
             }
         }
 
-        // modify the window when it is maximized or normalized
-        private void Window_StateChanged(object sender, EventArgs e)
-        {
-            setWinMargin();
-            if (WindowState == WindowState.Normal)
-            {
-                fullUnfullscreen.Source = fullScreenSourceDummy.Source;
-            }
-            if (WindowState == WindowState.Maximized)
-            {
-                fullUnfullscreen.Source = unfullScreenSourceDummy.Source;
-            }
-        }
-
         // when the full/unfullscreen button is clicked
         private void switchScreenSizeMode_OP(object sender, MouseButtonEventArgs e) {
             switch (WindowState)

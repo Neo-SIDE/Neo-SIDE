@@ -17,9 +17,11 @@ using NeoSIDE.Languages;
 
 namespace NeoSIDE.components
 {
-    /// <summary>
-    /// Interaction logic for ScriptEditor.xaml
-    /// </summary>
+    public class ScriptEditorFormatter
+    {
+
+    }
+
     public partial class ScriptEditor : UserControl
     {
         // where the cursor is placed
