@@ -17,11 +17,6 @@ using NeoSIDE.Languages;
 
 namespace NeoSIDE.components
 {
-    public class ScriptEditorFormatter
-    {
-
-    }
-
     public partial class ScriptEditor : UserControl
     {
         // where the cursor is placed
@@ -41,14 +36,13 @@ namespace NeoSIDE.components
         // if you can use the textbox
         bool textBoxUsable = true;
 
-        // if formatting is enabled
-        bool format = true;
-        ScriptingLanguage currentLanguage = new Python();
+        public ScriptingLanguage currentLanguage = new Python();
 
 
         public ScriptEditor()
         {
             InitializeComponent();
+
             currentCursor = Cursor;
             currentCursorParent = Cursor.Parent as StackPanel;
 
@@ -242,6 +236,8 @@ namespace NeoSIDE.components
 
                 ((scriptEditor.Children[currentLine - 1] as Grid).Children[1] as StackPanel).Children.Add(newText);
             }
+
+            formatText();
         }
         void refreshLine()
         {
@@ -348,52 +344,58 @@ namespace NeoSIDE.components
             return lineText;
         }
 
+
+        // ------------------------------------------------------------- Formatting ----------------------------------------------------
+        // this entire section is just to format the text
+        // also don't move anything it will cause huge huge performance issues
+
         async void formatText()
         {
-            if (format == true)
+            // --------------------------------------- basic keyword formatting ---------------------------------------
+            // this will format keywords
+            List<Keyword> keywords = currentLanguage.formatView.keywords;
+
+            foreach (formatting.Keyword keyword in keywords)
             {
-                await Task.Delay(10);
-
-                List<Keyword> keywords = currentLanguage.formatView.keywords;
-                List<commonError> errors = currentLanguage.formatView.commonErrors;
-
-                foreach (formatting.Keyword keyword in keywords)
+                foreach (Grid tempLine in scriptEditor.Children)
                 {
-                    foreach (Grid tempLine in scriptEditor.Children)
+                    StackPanel Line = tempLine.Children[1] as StackPanel;
+                    string lineText = readLineText(Line);
+
+                    int currentStart = 0;
+                    string checkingKeyword = keyword.Text;
+
+                    while ((currentStart + checkingKeyword.Length) <= lineText.Length)
                     {
-                        StackPanel Line = tempLine.Children[1] as StackPanel;
-                        string lineText = readLineText(Line);
+                        string checkingText = lineText.Substring(currentStart, checkingKeyword.Length);
 
-                        int currentStart = 0;
-                        string checkingKeyword = keyword.Text;
-
-                        while ((currentStart + checkingKeyword.Length) <= lineText.Length)
+                        if (checkingText == checkingKeyword)
                         {
-                            string checkingText = lineText.Substring(currentStart, checkingKeyword.Length);
-
-                            if (checkingText == checkingKeyword)
+                            foreach (UIElement tempTextBlock in Line.Children)
                             {
-                                foreach (UIElement tempTextBlock in Line.Children)
+                                TextBlock textBlock;
+
+                                if (tempTextBlock is TextBlock)
                                 {
-                                    TextBlock textBlock;
+                                    textBlock = tempTextBlock as TextBlock;
+                                    int index = (textBlock.Parent as StackPanel).Children.IndexOf(textBlock) + 1;
 
-                                    if (tempTextBlock is TextBlock)
+                                    if (index >= currentStart && index <= (currentStart + checkingKeyword.Length))
                                     {
-                                        textBlock = tempTextBlock as TextBlock;
-                                        int index = (textBlock.Parent as StackPanel).Children.IndexOf(textBlock) + 1;
 
-                                        if (index >= currentStart && index <= (currentStart + checkingKeyword.Length))
-                                        {
-
-                                            textBlock.Foreground = new SolidColorBrush(keyword.TextColor);
-                                        }
+                                        textBlock.Foreground = new SolidColorBrush(keyword.TextColor);
                                     }
                                 }
                             }
-                            currentStart += 1;
                         }
+                        currentStart += 1;
                     }
                 }
+
+                // ----------------------------------------------- common errors --------------------------------------
+                // the text editor will point out very common errors as if they're keywords
+
+                List<commonError> errors = currentLanguage.formatView.commonErrors;
 
                 foreach (formatting.commonError error in errors)
                 {
@@ -422,10 +424,7 @@ namespace NeoSIDE.components
 
                                         if (index >= currentStart && index <= (currentStart + checkingKeyword.Length))
                                         {
-                                            if (textBlock.Foreground == new SolidColorBrush(Colors.Red))
-                                            {
-                                                textBlock.Foreground = new SolidColorBrush(Colors.White);
-                                            }
+                                            textBlock.Foreground = new SolidColorBrush(Colors.White);
                                             textBlock.Background = new SolidColorBrush(Colors.Red);
                                         }
                                     }
@@ -436,7 +435,10 @@ namespace NeoSIDE.components
                     }
                 }
 
-                // strings 
+                // ---------------------------------------------------- strings  ----------------------------------------------------------
+                // this will format strings
+                // everything in between quotations will be marked as a string
+                // and colored to their respective assigned color
 
                 bool inString = false;
                 foreach (Grid lineTemp in scriptEditor.Children)
@@ -472,7 +474,15 @@ namespace NeoSIDE.components
                     }
                 }
 
-                // comments 
+                /* =====================================] comments [===================================================
+                
+                comments like this one will turn whatever color they are assigned to
+                this color will probably vary between languages but who knows*/
+
+
+                /* ------------- single line comments ------------
+                 * 
+                single line comments, like this one */
 
                 bool inComment = false;
                 foreach (Grid lineTemp in scriptEditor.Children)
