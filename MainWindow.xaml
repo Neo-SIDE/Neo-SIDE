@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:NeoSIDE"
         xmlns:xcp="clr-namespace:NeoSIDE.components"
         mc:Ignorable="d"
-        Title="Neo SIDE" Width="960" Height="540">
+        Title="Neo SIDE" KeyDown="Window_KeyDown" WindowStyle="SingleBorderWindow" Width="960" Height="540">
 
-    <Grid Name="MainGrid" Background="#151515">
+    <Grid Name="MainGrid" Background="#11151b">
 
         <Grid.ContextMenu>
             <ContextMenu>
@@ -31,12 +31,12 @@
         </Grid.ContextMenu>
 
         <!-- The Menu Bar at the top -->
-        <Grid VerticalAlignment="Top" Height="35" Margin="0,0,0,0">
+        <Grid VerticalAlignment="Top" Height="27" Margin="0,0,0,0">
             
         </Grid>
 
         <!-- The main area -->
-        <Grid Margin="0,35,0,0">
+        <Grid Margin="0,27,0,0">
             <!-- spacing from edges -->
             <Grid Margin="5">
                 <xcp:ScriptEditor Grid.Column="0"></xcp:ScriptEditor>

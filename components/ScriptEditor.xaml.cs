@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+----------------------------------------------   import -------------------------------------
+a bunch of import statements
+import modules with care
+they may overwrite names or functions
+
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +23,15 @@ using System.Windows.Shapes;
 using NeoSIDE.formatting;
 using NeoSIDE.Languages;
 
+
+// ----------------------------------------------- script editor -------------------------------------------------------------------
+
+/*
+ this will be the programs script editor
+this is where the user will spend most of their time
+writing code and everything
+take good care of it
+ */
 namespace NeoSIDE.components
 {
     public partial class ScriptEditor : UserControl
@@ -38,18 +55,35 @@ namespace NeoSIDE.components
 
         public ScriptingLanguage currentLanguage = new Python();
 
-
+        /*
+         gets called when the Script Editor is Initialized
+        this is a constructor
+         */
         public ScriptEditor()
         {
             InitializeComponent();
 
+            /*
+             set cursor variables
+
+            set the currentCursor to the currentCursor variable
+            and the same with it's parent
+             */
             currentCursor = Cursor;
             currentCursorParent = Cursor.Parent as StackPanel;
 
+            // set the hover cursor
             MainWorkspace.Cursor = Cursors.IBeam;
         }
 
-        // move the cursor left and refresh the line
+        /* ----------------------------------------------------------- cursor functions -----------------------------------------------------------------
+         
+         these functions make the cursor work
+
+         please do not modify these functions unless absolutely necisary
+         or bugged
+         
+         */
         private void cursorLeft()
         {
             if (cursorPlacement != 0)
@@ -62,7 +96,6 @@ namespace NeoSIDE.components
 
             }
         }
-        // move the cursor right and refresh the line
         private void cursorRight()
         {
             if (!(((scriptEditor.Children[currentLine - 1] as Grid).Children[1] as StackPanel).Children.Count - 1 == (cursorPlacement)))
@@ -72,7 +105,6 @@ namespace NeoSIDE.components
                 refreshLine();
             }
         }
-        // move the cursor up and refresh the line
         private void cursorUp()
         {
             if (currentLine != 1)
@@ -87,8 +119,6 @@ namespace NeoSIDE.components
                 refreshLine();
             }
         }
-
-        // move the cursor down and refresh the line
         private void cursorDown()
         {
             if (currentLine != scriptEditor.Children.Count)
@@ -114,6 +144,29 @@ namespace NeoSIDE.components
                 refreshLine();
             }
         }
+        void createCursor()
+        {
+            // create the cursor
+            StackPanel cursor = new StackPanel();
+            cursor.Width = 2;
+            cursor.Background = new SolidColorBrush(Colors.White);
+
+            Grid CurrentLine = scriptEditor.Children[currentLine - 1] as Grid;
+            StackPanel lineTextContainer = CurrentLine.Children[1] as StackPanel;
+            lineTextContainer.Children.Add(cursor);
+
+            currentCursorParent.Children.Remove(currentCursor);
+
+            // definition
+            currentCursor = cursor;
+            currentCursorParent = cursor.Parent as StackPanel;
+        }
+
+        /*----------------------------------------------------------- Control functions -----------------------------------------------------
+        
+        these make the script editor actually work
+        these do not work very well so bugs do need fixing
+         */
 
         void addLine()
         {
@@ -125,7 +178,7 @@ namespace NeoSIDE.components
 
             // line number
             Grid lineNumber = new Grid();
-            lineNumber.Width = 70;
+            lineNumber.Width = 65;
             lineNumber.HorizontalAlignment = HorizontalAlignment.Left;
 
             // line number text
@@ -168,26 +221,6 @@ namespace NeoSIDE.components
 
             createCursor();
         }
-
-        void createCursor()
-        {
-            // create the cursor
-            StackPanel cursor = new StackPanel();
-            cursor.Width = 2;
-            cursor.Background = new SolidColorBrush(Colors.White);
-
-            Grid CurrentLine = scriptEditor.Children[currentLine - 1] as Grid;
-            StackPanel lineTextContainer = CurrentLine.Children[1] as StackPanel;
-            lineTextContainer.Children.Add(cursor);
-
-            currentCursorParent.Children.Remove(currentCursor);
-
-            // definition
-            currentCursor = cursor;
-            currentCursorParent = cursor.Parent as StackPanel;
-        }
-
-
         void addText(string character)
         {
             // get the current line's text
@@ -278,8 +311,9 @@ namespace NeoSIDE.components
 
                 lineStackPanel.Children.Add(newText);
             }
-        }
 
+            formatText();
+        }
         void checkForAndTypechar(System.Windows.Input.Key key, System.Windows.Input.Key checkKey, string lowCharacter, string upCharacter)
         {
             if (key == checkKey && (!Keyboard.IsKeyDown(Key.LeftShift) && !Keyboard.IsKeyDown(Key.RightShift) && !Console.CapsLock)) { addText(lowCharacter); }
@@ -291,7 +325,6 @@ namespace NeoSIDE.components
             if (key == checkKey && (!Keyboard.IsKeyDown(Key.LeftShift) && !Keyboard.IsKeyDown(Key.RightShift))) { addText(lowCharacter); }
             if (key == checkKey && (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))) { addText(upCharacter); }
         }
-
         void backspace()
         {
             StackPanel currentLineStackPanel = (scriptEditor.Children[currentLine - 1] as Grid).Children[1] as StackPanel;
@@ -325,7 +358,6 @@ namespace NeoSIDE.components
                 refreshLine();
             }
         }
-
         string readLineText(StackPanel line)
         {
             string lineText = "";
@@ -345,11 +377,12 @@ namespace NeoSIDE.components
         }
 
 
-        // ------------------------------------------------------------- Formatting ----------------------------------------------------
-        // this entire section is just to format the text
-        // also don't move anything it will cause huge huge performance issues
+        /* ------------------------------------------------------------- Formatting ----------------------------------------------------
+        
+        this entire section is just to format the text
+        also don't move anything it will cause huge huge performance issues */
 
-        async void formatText()
+        void formatText()
         {
             // --------------------------------------- basic keyword formatting ---------------------------------------
             // this will format keywords

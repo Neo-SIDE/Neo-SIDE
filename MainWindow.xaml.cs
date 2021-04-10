@@ -149,5 +149,22 @@ namespace NeoSIDE
         {
             WindowState = WindowState.Minimized;
         }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.F11)
+            {
+                switch (WindowStyle)
+                {
+                    case WindowStyle.None:
+                        WindowStyle = WindowStyle.SingleBorderWindow;
+                        break;
+                    case WindowStyle.SingleBorderWindow:
+                        WindowState = WindowState.Maximized;
+                        WindowStyle = WindowStyle.None;
+                        break;
+                }
+            }
+        }
     }
 }
