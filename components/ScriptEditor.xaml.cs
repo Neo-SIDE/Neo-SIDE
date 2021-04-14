@@ -71,9 +71,6 @@ namespace NeoSIDE.components
              */
             currentCursor = Cursor;
             currentCursorParent = Cursor.Parent as StackPanel;
-
-            // set the hover cursor
-            MainWorkspace.Cursor = Cursors.IBeam;
         }
 
         /* ----------------------------------------------------------- cursor functions -----------------------------------------------------------------
@@ -718,6 +715,29 @@ namespace NeoSIDE.components
 
                     break;
             }
+        }
+
+        private void Highlight(object sender, MouseEventArgs e)
+        {
+            Border obj = sender as Border;
+            obj.Background = new SolidColorBrush(
+                Color.FromRgb(
+                    (byte)((obj.Background as SolidColorBrush).Color.R + 20),
+                    (byte)((obj.Background as SolidColorBrush).Color.G + 20),
+                    (byte)((obj.Background as SolidColorBrush).Color.B + 20)
+                )
+            );
+        }
+        private void unHighlight(object sender, MouseEventArgs e)
+        {
+            Border obj = sender as Border;
+            obj.Background = new SolidColorBrush(
+                Color.FromRgb(
+                    (byte)((obj.Background as SolidColorBrush).Color.R - 20),
+                    (byte)((obj.Background as SolidColorBrush).Color.G - 20),
+                    (byte)((obj.Background as SolidColorBrush).Color.B - 20)
+                )
+            );
         }
     }
 }

@@ -10,37 +10,34 @@
 
     <Grid Name="MainGrid" Background="#11151b">
 
-        <Grid.ContextMenu>
-            <ContextMenu>
-                <ContextMenu.Template>
-                    <ControlTemplate>
-                        <Grid Width="190" VerticalAlignment="Center" Background="#151515">
-                            <StackPanel Margin="10, 8">
-                                <TextBlock Foreground="White" FontSize="15" Text="copy"></TextBlock>
-                                <TextBlock Foreground="White" FontSize="15" Text="paste"></TextBlock>
-                                <Grid Height="3" Background="Transparent"></Grid>
-                                <Grid Height="3" Background="#006565"></Grid>
-                                <Grid Height="3" Background="Transparent"></Grid>
-                                <TextBlock Foreground="White" FontSize="15" Text="Next file"></TextBlock>
-                                <TextBlock Foreground="White" FontSize="15" Text="Previus File"></TextBlock>
-                            </StackPanel>
-                        </Grid>
-                    </ControlTemplate>
-                </ContextMenu.Template>
-            </ContextMenu>
-        </Grid.ContextMenu>
+        <!-- The Menu Bars at the top -->
+        <Grid Background="#1d2025" VerticalAlignment="Top" Height="30">
+            <Grid VerticalAlignment="Top" Height="29" Margin="0,0,0,0">
+                <Image HorizontalAlignment="Left" Margin="10, 3, 3, 3" Source="icon.ico"></Image>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="40, 0, 0, 0">
+                    <Border Background="#1d2025" MouseEnter="Highlight" MouseLeave="unHighlight">
+                        <TextBlock Foreground="White" Text="File" FontSize="16" Margin="5"></TextBlock>
 
-        <!-- The Menu Bar at the top -->
-        <Grid VerticalAlignment="Top" Height="27" Margin="0,0,0,0">
-            
+                        <Border.ContextMenu>
+                            <ContextMenu>
+                                <ContextMenu.Template>
+                                    <ControlTemplate>
+                                        <Grid>
+                                            
+                                        </Grid>
+                                    </ControlTemplate>
+                                </ContextMenu.Template>
+                            </ContextMenu>
+                        </Border.ContextMenu>
+                    </Border>
+                </StackPanel>
+            </Grid>
+            <!-- More Menu Items -->
         </Grid>
 
         <!-- The main area -->
-        <Grid Margin="0,27,0,0">
-            <!-- spacing from edges -->
-            <Grid Margin="5">
-                <xcp:ScriptEditor Grid.Column="0"></xcp:ScriptEditor>
-            </Grid>
+        <Grid Margin="0,32,0,0">
+            <xcp:ScriptEditor></xcp:ScriptEditor>
         </Grid>
     </Grid>
 </Window>

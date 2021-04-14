@@ -125,18 +125,6 @@ namespace NeoSIDE
             Sender.Background.Opacity = 0;
         }
 
-        // unhighlight an object
-        private void Unhighlight(object sender, MouseEventArgs e)
-        {
-            Border Sender = sender as Border;
-            Sender.Background.Opacity = 0;
-        }
-        // highlight an object
-        private void Highlight(object sender, MouseEventArgs e)
-        {
-            Border Sender = sender as Border;
-            Sender.Background.Opacity = 1;
-        }
 
         // close the window
         private void Close_OP(object sender, MouseButtonEventArgs e)
@@ -165,6 +153,29 @@ namespace NeoSIDE
                         break;
                 }
             }
+        }
+
+        private void Highlight(object sender, MouseEventArgs e)
+        {
+            Border obj = sender as Border;
+            obj.Background = new SolidColorBrush(
+                Color.FromRgb(
+                    (byte)((obj.Background as SolidColorBrush).Color.R + 20),
+                    (byte)((obj.Background as SolidColorBrush).Color.G + 20),
+                    (byte)((obj.Background as SolidColorBrush).Color.B + 20)
+                )
+            );
+        }
+        private void unHighlight(object sender, MouseEventArgs e)
+        {
+            Border obj = sender as Border;
+            obj.Background = new SolidColorBrush(
+                Color.FromRgb(
+                    (byte)((obj.Background as SolidColorBrush).Color.R - 20),
+                    (byte)((obj.Background as SolidColorBrush).Color.G - 20),
+                    (byte)((obj.Background as SolidColorBrush).Color.B - 20)
+                )
+            );
         }
     }
 }
